@@ -4,17 +4,24 @@ import java.util.Calendar;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class YoilTellerMVC6 {
-//	@ExceptionHandler(Exception.class)
-//	public String catcher(Exception ex) {
-//		ex.printStackTrace();
-//		return "yoilError";
-//	}
+	@ExceptionHandler(Exception.class)
+	public String catcher(Exception ex, BindingResult result) {
+		System.out.println("result="+result);
+		FieldError error = result.getFieldError();
+		
+		System.out.println("code="+error.getCode());
+		System.out.println("field="+error.getField());
+		System.out.println("msg="+error.getDefaultMessage());
+		ex.printStackTrace();
+		return "yoilError";
+	}
 	
     @RequestMapping("/getYoilMVC6") // http://localhost/ch2/getYoilMVC6
 //    public String main(@ModelAttribute("myDate") MyDate date, Model model) {	//아래와 동일
